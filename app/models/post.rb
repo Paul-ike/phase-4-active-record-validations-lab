@@ -6,7 +6,7 @@ class Post < ApplicationRecord
     validate :title_contains_clickbait
 
     def title_contains_clickbait
-        unless title.present? && (title.include?("Won't Believe") || title.include?("Secret") || title.include?("Guess") || title.match?(/\bTop \d+\b/))
+        unless title.present? && (title.include?("Won't Believe") || title.include?("Secret") || title.include?("Guess"))
         errors.add(:title, "should be sufficiently clickbait-y")
         end
     end
