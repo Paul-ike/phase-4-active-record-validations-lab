@@ -2,11 +2,12 @@ class Post < ApplicationRecord
     validates :title, presence: true
     validates :content, length: { minimum: 250 }
     validates :summary, length: { maximum: 250 }
-    validates :category, inclusion: { in: ['Fiction', 'Non-Fiction'] }
-    # validate :custom_validator
+    validates :category, inclusion: ['Fiction', 'Non-Fiction'] 
+    validate :title_contains_clickbait
 
-    # def custom_validator
-    #     unless title.match?("Won't Believe")
-    #         errors.add(:title, "You Won't Believe These True Facts")
-    # end
+    def title_contains_clickbait
+        unless title.present? && (title.include?("Won't Believe") || title.include?("Secret") || title.include?("Guess") || title.match?(/\bTop \d+\b/))
+        errors.add(:title, "should be sufficiently clickbait-y")
+        end
+    end
 end
